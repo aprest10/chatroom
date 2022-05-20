@@ -9,70 +9,9 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include "chat.h"
 
-#define BUFFER 2048
-
-volatile sig_atomic_t flag = 0;
-int sockfd = 0;
 char name[32];
-
-void str_overwrite_stdout() {
-    printf("\r%s", "> ");
-    fflush(stdout);
-}
-
-void str_trim_lf(char *arr, int length) {
-    for (int i = 0; i < length; ++i) {
-        if (arr[i] == '\n') {
-            arr[i] = '\0';
-            break;
-        }
-    }
-}
-
-void catch_ctrl_c_and_exit() {
-    flag = 1;
-}
-
-void recv_msg_handler() {
-    char message[BUFFER] = {};
-
-    while (1) {
-        int receive = recv(sockfd, message, BUFFER, 0);
-
-        if (receive > 0) {
-            printf("%s", message);
-            str_overwrite_stdout();
-        }
-        else if (receive == 0) {
-            break;
-        }
-        memset(message, 0, sizeof(message));
-    }
-}
-
-void send_msg_handler() {
-    char message[BUFFER] = {};
-    char buffer[BUFFER + 32] = {};
-
-    while (1) {
-        str_overwrite_stdout();
-        fgets(message, BUFFER, stdin);
-        str_trim_lf(message, BUFFER);
-
-        if (strcmp(message, "exit") == 0) {
-            break;
-        }
-        else {
-            sprintf(buffer, "%s: %s\n", name, message);
-            send(sockfd, buffer, strlen(buffer), 0);
-        }
-
-        bzero(message, BUFFER);
-        bzero(buffer, BUFFER + 32);
-    }
-    catch_ctrl_c_and_exit();
-}
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
@@ -84,7 +23,7 @@ int main(int argc, char *argv[]) {
     int port = atoi(argv[1]);
 
     signal(SIGINT, catch_ctrl_c_and_exit);
-    printf("Enter your name: ");
+    printf("Enter your name (2-30 char length): ");
     fgets(name, 32, stdin);
     str_trim_lf(name, strlen(name));
 
@@ -111,7 +50,8 @@ int main(int argc, char *argv[]) {
 
     // Send name
     send(sockfd, name, 32, 0);
-    printf("Welcome to the chatroom!\n");
+    printf("Welcome to the chatroom!\nType 'exit' when you want to leave.\n");
+    printf("-------------------------------------------------------\n");
 
     pthread_t send_msg_thread;
     if (pthread_create(&send_msg_thread, NULL, (void *)send_msg_handler, NULL) != 0) {
