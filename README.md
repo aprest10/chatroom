@@ -1,10 +1,12 @@
 # chatroom
 
-Chatroom application written entirely in C. More details will be added later.
+Chatroom application written entirely in C.
 
 [server.c](./server.c) and [client.c](./client.c) can be compiled using the 'make all' command found in the [Makefile](./Makefile).
 
 Compiled versions are also avaiable.
+
+---
 
 After downloading the chatroom file, we will need to open the terminal and go to the chatroom directory.
 
@@ -26,12 +28,12 @@ To recompile use the following commands
 make clean
 make all
 ```
-make clean will remove the existing executable files
-c\make all will compile using the .c files
+'make clean' will remove the existing executable files <br>
+'make all' will compile using the .c files
 
 With our executables ready we can open multiple terminal sessions to mimic multiple users.
 
-[image 1 here]
+![Image 1](images/image_1.png)
 
 In one of the terminal sessions we can set up the server using the following command
 
@@ -51,19 +53,19 @@ this will set up clients using port 4444
 
 After commpleting this set up our terminal session should look similar to this
 
-[image 2 here]
+![Image 2](images/image_2.png)
 
 in the example above 3 clients where set-up
 
 We can now follow the prompts on screen by giving each client a name.
 
-[image 3 here]
+![Image 3](images/image_3.png)
 
 as we can see the server logs all of the activity of the clients.
 
 From here the clients can interact with each other simultaneously.
 
-[image 4 here]
+![Image 4](images/image_4.png)
 
 When a client is ready to leave they can type the following command to end their session
 
@@ -71,5 +73,9 @@ When a client is ready to leave they can type the following command to end their
 exit
 ```
 
+![Image 5](images/image_5.png)
+
 When we want to close the server we will have to send a 'SIGINT' signal to the process.
 On MacOS this can be done by pressing 'ctrl+c'
+
+![Image 6](images/image_6.png)
