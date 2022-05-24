@@ -41,7 +41,7 @@ In one of the terminal sessions we can set up the server using the following com
 ./server 4444
 ```
 
-this will set up the server using port 4444
+This will set up the server using port 4444.
 
 Next we can set up a couple clients using the following command
 
@@ -49,25 +49,25 @@ Next we can set up a couple clients using the following command
 ./client 4444
 ```
 
-this will set up clients using port 4444
+This will set up clients using port 4444.
 
 After commpleting this set up our terminal session should look similar to this
 
 ![Image 2](images/image_2.png)
 
-in the example above 3 clients where set-up
+In the example above 3 clients where set-up.
 
 We can now follow the prompts on screen by giving each client a name.
 
 ![Image 3](images/image_3.png)
 
-as we can see the server logs all of the activity of the clients.
+As we can see the server logs all of the activity of the clients.
 
 From here the clients can interact with each other simultaneously.
 
 ![Image 4](images/image_4.png)
 
-When a client is ready to leave they can type the following command to end their session
+When a client is ready to leave they can type the following command to end their session.
 
 ```bash
 exit
@@ -76,6 +76,6 @@ exit
 ![Image 5](images/image_5.png)
 
 When we want to close the server we will have to send a 'SIGINT' signal to the process.
-On MacOS this can be done by pressing 'ctrl+c'
+On MacOS this can be done by pressing 'ctrl+c'.
 
 ![Image 6](images/image_6.png)
